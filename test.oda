@@ -1,0 +1,26 @@
+#!/home/websytek/Desktop/Oda/oda
+print3:
+	echo "print3\n"
+	shell "echo HelloWolrd"
+	when= 12 12 end
+	prev
+
+print2:
+	/*Do ot output print2
+	echo "print2\n"
+	*/echo "Comment"
+	jump print3
+	prev
+
+print:
+	echo "print1\n"
+	jump print2
+ 	prev
+
+main:
+	var $test
+	jump print
+	halt 23
+
+end:
+	halt 1
