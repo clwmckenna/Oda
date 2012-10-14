@@ -68,7 +68,7 @@ void execute(char filen[]){
 			if(tmain)//If it's main
 				main = i;
 		}
-		
+		cerr << filec[i] << ' ' << i <<endl;
 	}
 
 	//cout << main << endl;
@@ -79,14 +79,14 @@ void execute(char filen[]){
 	//cout << endl;//Debuging to print out filec
 
 	for(i=main;i<filec.size();++i){
-		//cout << '[' << filec[i] << "] " << endl;
+		cerr << '[' << filec[i] << "] " << i << endl;
 		if(filec[i].find("echo")== 0){
 			echo(filec[i]);
 		}else if(filec[i].find("halt")== 0){
 			halt(filec[i]);
 		}else if(filec[i].find("jump")== 0){
-			jumps.push_back(i);
-			i = jump(filec[i]);
+			jumps.push_back(i-1);
+			i = jump(filec[i])-1;
 		}else if(filec[i]=="prev"){
 			i = jumps[jumps.size()-1];
 			jumps.pop_back();
@@ -95,10 +95,13 @@ void execute(char filen[]){
 		}else if(filec[i].find("when")==0){
 			jumps.push_back(i);
 			tjump = when(filec[i]);
-			if(tjump!=-1)
-				i = tjump;
+			/*Fix variable label assigment prev error*/
+			if(tjump!=-1){
+				jumps.push_back(i);//Fixed there
+				i = tjump-1;
+			}
 		}else if(filec[i].find("var")==0){
-			var(filec[i],i);
+			var(filec[i]);
 		}
 	}
 

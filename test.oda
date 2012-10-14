@@ -18,7 +18,7 @@ print:
  	prev
 
 main:
-	var $test
+	var end 18
 	jump print
 	halt 23
 

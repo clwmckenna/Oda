@@ -28,7 +28,7 @@ string cws(string org){
 	return org;
 }
 
-//Stoi taken from cfoldlib.h
+//Stoi taken from cfoldlib.h (Credit myself :))
 int stoi(string toConv){
 	//Converts std::string to int
 	int result = 0;
@@ -41,17 +41,7 @@ int stoi(string toConv){
 	return result;
 }
 
-bool isvalue(string lab){
-	//Checks for int constants
-	for(int i=lab.size()-1;i>=0;--i){
-		if(not isdigit( lab[i] )){
-			return false;
-		}
-	}
-	return true;
-}
-
 template <class T>
 void quote(T a){
-	cout << "'" << a << "'\n";
+	cerr << "'" << a << "'\n";
 }

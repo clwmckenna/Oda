@@ -1,5 +1,5 @@
 #include "odawhat.h"
-//#include "odavar.h"
+#include "odavar.h"
 
 bool newlabel(string lab, int line){
 	//Returns is it main function
@@ -62,18 +62,4 @@ void shell(string lab){
 	lab = lab.substr(firstfind+1,lab.length());
 	lab = lab.substr(0,lab.find('"'));
 	system(lab.c_str());
-}
-
-void var(string lab,int i){
-	//Set a new var
-	cout << "Var called: ";
-	int a = lab.find(" ");
-	lab = lab.substr(a+1,lab.size()-a-1);
-
-	//Handle labels separate to variables
-	if(lab[0]='$'){
-
-	}else{
-		
-	}
 }

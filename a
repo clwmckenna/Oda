@@ -1,0 +1,35 @@
+#!/home/websytek/Desktop/Oda/oda 0
+print3: 1
+echo "print3\n" 2
+shell "echo HelloWolrd" 3
+when= 12 12 end 4
+prev 5
+print2: 6
+echo "Comment" 7
+jump print3 8
+prev 9
+print: 10
+echo "print1\n" 11
+jump print2 12
+prev 13
+main: 14
+var end 18 15
+jump print 16
+halt 23 17
+end: 18
+halt 1 19
+[main:] 14
+[var end 18] 15
+[jump print] 16
+[print:] 10
+[echo "print1\n"] 11
+[jump print2] 12
+[print2:] 6
+[echo "Comment"] 7
+[jump print3] 8
+[print3:] 1
+[echo "print3\n"] 2
+[shell "echo HelloWolrd"] 3
+[when= 12 12 end] 4
+[end:] 18
+[halt 1] 19
