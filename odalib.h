@@ -45,3 +45,9 @@ template <class T>
 void quote(T a){
 	cerr << "'" << a << "'\n";
 }
+
+void show(vector<int> a){
+	cout << '<';
+	for(int i=0;i<a.size();++i)cout << a[i] << ' '; 
+	cout << ">\n";
+}

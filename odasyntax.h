@@ -1,5 +1,5 @@
+#include "odavar.h"  //Import vars first as 'when' statment uses them
 #include "odawhat.h"
-#include "odavar.h"
 
 bool newlabel(string lab, int line){
 	//Returns is it main function
@@ -23,29 +23,34 @@ bool newlabel(string lab, int line){
 void echo(string lab){
 	//Handles priting variable sto be implementd
 	int firstfind = lab.find('"',0);
-	lab = lab.substr(firstfind+1,lab.length());
-	lab = lab.substr(0,lab.find('"'));
+	if(firstfind!=lab.npos){
+		//Handle strings
+		lab = lab.substr(firstfind+1,lab.length());
+		lab = lab.substr(0,lab.find('"'));
 
-	for(int i=0;i<lab.size();++i){
-		if(i<lab.size()-1)
-			if(lab[i]=='\\' and lab[i+1]=='n'){
-				cout << endl;
-				++i;
-				continue;
-			}
+		for(int i=0;i<lab.size();++i){
+			if(i<lab.size()-1)
+				if(lab[i]=='\\' and lab[i+1]=='n'){
+					cout << endl;
+					++i;
+					continue;
+				}
 
-		cout << lab[i];
+			cout << lab[i];
+		}
+	}else{
+		cout << getValue(  lab.substr(lab.find(' ',0)+1,lab.length()-1)  );
 	}
 }
 
 void halt(string lab){
+	cout << "Halt: " << lab << endl;
 	if(lab.find(' ')==lab.npos)
 		exit(0);
 	else{
-		int stat;//Exit status
 		lab = lab.substr(lab.find(' ')+1,lab.length());
-		stat = stoi(lab);
-		exit(stat);
+		cout << lab << endl;
+		exit(getValue(lab));
 	}
 }
 

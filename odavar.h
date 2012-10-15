@@ -9,6 +9,7 @@ bool isvalue(string lab){
 }
 
 int getValue(string lab){
+	//cout << "'" << lab << "'" << endl;
 	//gets value of constant or var or label
 	if(lab[0]=='$'){
 		lab.erase(0,1);
@@ -22,11 +23,14 @@ int getValue(string lab){
 
 void assignValue(string lab,int newv){
 	//Assign value
+	cout << "assignValue called\n";
+	cout << lab << " " << newv << endl;
 	if(lab[0]=='$'){
 		lab.erase(0,1);
 		vars[lab] = newv;
 	}else{
-		return labels[lab] = newv;
+		cout << lab << " " << labels[lab] << " " << newv << endl;
+		labels[lab] = newv;
 	}
 }
 
@@ -41,16 +45,11 @@ void var(string lab){
 	//Handle assigment
 	if(lab.find(' ')!=lab.npos){
 		string tmp =  lab.substr( lab.find(' ')+1, lab.size()-1);
-		assign = stoi(     lab.substr( lab.find(' ')+1, lab.size()-1)    );
+		cout <<  lab.substr( lab.find(' ')+1, lab.size()-1) << endl;
+		assign = getValue(     lab.substr( lab.find(' ')+1, lab.size()-1)    );
 	}
 
 	lab = lab.substr(0,lab.find(' '));
 
-	//Handle labels separate to variables
-	if(lab[0]=='$'){
-		lab.erase(0,1);//Remove $
-		vars[lab] = assign;
-	}else{
-		labels[lab] = assign;
-	}
+	assignValue(lab,assign);
 }

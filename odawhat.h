@@ -1,4 +1,7 @@
 ifdata getVals(string lab){
+	/*Handels the '2 $var label'
+	pert of the when statment*/
+
 	ifdata toret;//to retrun
 
 	string one,two, newlab;
@@ -11,17 +14,10 @@ ifdata getVals(string lab){
 	two = lab.substr(i+1,j-1);
 	toret.newlab = lab.substr(j+i+1,lab.length()-1);
 
-	if(isvalue(one)){
-		toret.one = stoi(one);
-	}else{
-		toret.one = vars[one];
-	}
-
-	if(isvalue(two)){
-		toret.two = stoi(two);
-	}else{
-		toret.two = vars[two];
-	}
+	/*Rewriten to take advantage of new 
+	Odavar.h functions*/
+	toret.one = getValue(one);
+	toret.two = getValue(two);
 
 	return toret;
 }

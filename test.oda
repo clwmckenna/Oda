@@ -1,26 +1,30 @@
 #!/home/websytek/Desktop/Oda/oda
-print3:
-	echo "print3\n"
-	shell "echo HelloWolrd"
-	when= 12 12 end
-	prev
 
-print2:
-	/*Do ot output print2
-	echo "print2\n"
-	*/echo "Comment"
-	jump print3
-	prev
+/*A sample Oda test program
+*/
 
-print:
-	echo "print1\n"
-	jump print2
- 	prev
+beforemain:
+	//echo "\nneverhappens never happend\n"
+	jump aftermain
+	//echo "This never prints!\n"
+	prev
 
 main:
-	var end 18
-	jump print
-	halt 23
+	//var $random 12
+	//echo $random
+	//when< $random 10 neverhappens
+	jump beforemain
+	halt 1//$random
 
-end:
-	halt 1
+aftermain:
+	//echo "Random == "
+	//echo $random
+	//echo "\n"
+	var beforemain 0 
+	//5
+	//Comment: sets to skip line 5
+	jump beforemain
+	/*Nice multi line comment*/
+
+//neverhappens:
+//	halt 0

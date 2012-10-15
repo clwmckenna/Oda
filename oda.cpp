@@ -37,12 +37,11 @@ void execute(char filen[]){
 		if(iscomment){
 			if(filec[i].find("*/")!=filec[i].npos){
 				filec[i] = filec[i].substr(filec[i].find("*/")+2,filec[i].length());
-				//cout << "DEBUG! " << filec[i] << endl;
 				iscomment = false;
 			}else{
 				filec.erase(filec.begin()+i);
 				--i;
-				continue;	
+				continue;
 			}
 		}
 
@@ -52,30 +51,34 @@ void execute(char filen[]){
 		}
 		//End multiline comment handling
 
+		/*Fixes "bug" that only allowed //coemmetns to start at str[0]*/
+		if(filec[i].find("//")!=filec[i].npos){//Handle comments
+			filec[i].erase(filec[i].find("//"),filec[i].length());
+			--i;
+			continue;
+		}
+
+		/*Rease empty lines*/
 		if(filec[i].length()==0){
 			filec.erase(filec.begin()+i);
 			--i;
 			continue;
 		}
-		if(filec[i].length()>1 and filec[i][0]=='/' and filec[i][1]=='/'){//Handle comments
-			filec.erase(filec.begin()+i);
-			--i;
-			continue;
-		}
 
+		/*Detect laebls*/
 		if(filec[i][ filec[i].length()-1 ] == ':'){
 			tmain = newlabel(filec[i],i);
 			if(tmain)//If it's main
 				main = i;
 		}
-		cerr << filec[i] << ' ' << i <<endl;
 	}
 
 	//cout << main << endl;
 
-	//for(i=0;i<filec.size();++i){
-		//cout << filec[i] << endl;
-	//}
+	for(i=0;i<filec.size();++i){
+		cout << filec[i] << endl;
+	}
+	return;
 	//cout << endl;//Debuging to print out filec
 
 	for(i=main;i<filec.size();++i){
@@ -85,19 +88,22 @@ void execute(char filen[]){
 		}else if(filec[i].find("halt")== 0){
 			halt(filec[i]);
 		}else if(filec[i].find("jump")== 0){
-			jumps.push_back(i-1);
+			jumps.push_back(i);//Important leave alone
+			show(jumps);
 			i = jump(filec[i])-1;
+			cout << "Jumping to line "<<i+1<<endl;
 		}else if(filec[i]=="prev"){
 			i = jumps[jumps.size()-1];
 			jumps.pop_back();
+			show(jumps);
 		}else if(filec[i].find("shell")==0){
 			shell(filec[i]);
 		}else if(filec[i].find("when")==0){
-			jumps.push_back(i);
 			tjump = when(filec[i]);
 			/*Fix variable label assigment prev error*/
 			if(tjump!=-1){
 				jumps.push_back(i);//Fixed there
+				show(jumps);
 				i = tjump-1;
 			}
 		}else if(filec[i].find("var")==0){
