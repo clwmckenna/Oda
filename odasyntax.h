@@ -44,12 +44,10 @@ void echo(string lab){
 }
 
 void halt(string lab){
-	cout << "Halt: " << lab << endl;
 	if(lab.find(' ')==lab.npos)
 		exit(0);
 	else{
 		lab = lab.substr(lab.find(' ')+1,lab.length());
-		cout << lab << endl;
 		exit(getValue(lab));
 	}
 }

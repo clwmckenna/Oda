@@ -1,3 +1,7 @@
+/*Version 0.1.0a
+TODO:
+  - Make sure input
+*/
 using namespace std;
 #include <vector>
 #include <iostream>
@@ -46,8 +50,15 @@ void execute(char filen[]){
 		}
 
 		if(filec[i].find("/*")!=filec[i].npos){
-			iscomment = true;
-			filec[i] = filec[i].substr(0,filec[i].find("/*"));
+			/*Fix for a that allows multiline comment to be single line
+			before it the scanner never detected the closing *\/ when it was
+			on the same line*/
+			if(filec[i].find("*/")!=filec[i].npos){
+				filec[i] = filec[i].substr(0,filec[i].find("/*")) + filec[i].substr(filec[i].find("*/")+2,filec[i].length());
+			}else{
+				iscomment = true;
+				filec[i] = filec[i].substr(0,filec[i].find("/*"));
+			}
 		}
 		//End multiline comment handling
 
@@ -73,29 +84,18 @@ void execute(char filen[]){
 		}
 	}
 
-	//cout << main << endl;
-
-	for(i=0;i<filec.size();++i){
-		cout << filec[i] << endl;
-	}
-	return;
-	//cout << endl;//Debuging to print out filec
 
 	for(i=main;i<filec.size();++i){
-		cerr << '[' << filec[i] << "] " << i << endl;
 		if(filec[i].find("echo")== 0){
 			echo(filec[i]);
 		}else if(filec[i].find("halt")== 0){
 			halt(filec[i]);
 		}else if(filec[i].find("jump")== 0){
 			jumps.push_back(i);//Important leave alone
-			show(jumps);
 			i = jump(filec[i])-1;
-			cout << "Jumping to line "<<i+1<<endl;
 		}else if(filec[i]=="prev"){
 			i = jumps[jumps.size()-1];
 			jumps.pop_back();
-			show(jumps);
 		}else if(filec[i].find("shell")==0){
 			shell(filec[i]);
 		}else if(filec[i].find("when")==0){
@@ -103,7 +103,6 @@ void execute(char filen[]){
 			/*Fix variable label assigment prev error*/
 			if(tjump!=-1){
 				jumps.push_back(i);//Fixed there
-				show(jumps);
 				i = tjump-1;
 			}
 		}else if(filec[i].find("var")==0){

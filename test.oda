@@ -1,30 +1,29 @@
-#!/home/websytek/Desktop/Oda/oda
+#!/home/mgoszcz2/Desktop/Oda/oda
 
 /*A sample Oda test program
 */
 
-beforemain:
-	//echo "\nneverhappens never happend\n"
+befo/*Stupid place to put a comment*/remain:
+	echo "\nneverhappens never happend\n"
 	jump aftermain
-	//echo "This never prints!\n"
+	echo "This now prints!\n"
 	prev
 
 main:
-	//var $random 12
-	//echo $random
-	//when< $random 10 neverhappens
+	var $random 12
+	//echo "Stupid random\n"
+	echo $random
+	when< $random 10 neverhappens
 	jump beforemain
-	halt 1//$random
+	halt $random
 
 aftermain:
-	//echo "Random == "
-	//echo $random
-	//echo "\n"
-	var beforemain 0 
-	//5
-	//Comment: sets to skip line 5
-	jump beforemain
-	/*Nice multi line comment*/
+	echo "Random == "
+	echo $random
+	echo "\n"
+	var beforemain 5
+	Comment: sets to skip line 5
+	prev//Hello
 
-//neverhappens:
-//	halt 0
+neverhappens:
+	halt 0
