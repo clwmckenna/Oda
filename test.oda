@@ -1,29 +1,59 @@
 #!/home/mgoszcz2/Desktop/Oda/oda
 
-/*A sample Oda test program
-*/
+/*Oda implementation of simple guess
+game using new io and math functions
 
-befo/*Stupid place to put a comment*/remain:
-	echo "\nneverhappens never happend\n"
-	jump aftermain
-	echo "This now prints!\n"
-	prev
+Maciej Goszczycki 2012 - All Rights Reserved*/
+
+ask:
+	echo "Guess left "
+	echo $try
+	echo " :"
+	aski $guess
+	- $try 1 $try
+	when= $ans $guess win
+	when< $guess $ans small
+	when> $guess $ans big
 
 main:
-	var $random 12
-	//echo "Stupid random\n"
-	echo $random
-	when< $random 10 neverhappens
-	jump beforemain
-	halt $random
+	echo "Guess game!\n"
+	echo "\nMax range: "
+	aski $max
+	rand 0 $max $ans
+	//Finished getting ans
 
-aftermain:
-	echo "Random == "
-	echo $random
-	echo "\n"
-	var beforemain 5
-	Comment: sets to skip line 5
-	prev//Hello
+	var $try 5
 
-neverhappens:
-	halt 0
+	loop:
+	when> $try 0 ask
+	echo "You loose\n"
+	halt 1
+
+win:
+	echo "You won\n"
+	jump easter
+
+small:
+	echo "Number "
+	echo $guess
+	echo " is smaller than answer\n"
+	jump loop
+
+big:
+	echo "Number "
+	echo $guess
+	echo " is bigger than answer\n"
+	jump loop
+
+easter:
+	var $i 0
+	a:
+		when< $i 10 b
+		jump c
+	b:
+		echo "Na "
+		+ $i 1 $i
+		goto a
+	c:
+		echo "Oda!\n"
+		halt 0

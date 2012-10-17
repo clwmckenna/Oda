@@ -1,6 +1,7 @@
-/*Version 0.1.0a
+/*Version 0.1.0rc
 TODO:
-  - Make sure input
+  - Make basic errors
+  - Arrays
 */
 using namespace std;
 #include <vector>
@@ -9,7 +10,9 @@ using namespace std;
 #include <string>
 #include <algorithm>
 #include <utility>
+#include <cstdlib>
 #include <map>
+#include <cmath>
 
 #include "odadata.h"
 //Data structures included now make variables for odasynatx
@@ -19,6 +22,7 @@ int a=0;
 #include "odasyntax.h"
 
 void execute(char filen[]){
+	srand(time(NULL));
 	vector<string> filec;//Stores file context
 	ifstream org (filen);
 	string tmp;
@@ -107,6 +111,16 @@ void execute(char filen[]){
 			}
 		}else if(filec[i].find("var")==0){
 			var(filec[i]);
+		}else if(filec[i].find("goto")==0){
+			i = mgoto(filec[i])-1;
+
+		}else if(filec[i][0]=='+' or filec[i][0]=='*' or filec[i][0]=='-' or filec[i][0]=='/' or filec[i][0]=='^' or filec[i][0]=='%' or filec[i][0]=='$'){
+			//Maths :)
+			calc(filec[i]);
+		}else if(filec[i].find("aski")==0){
+			aski(filec[i]);
+		}else if(filec[i].find("rand")==0){
+			mrand(filec[i]);
 		}
 	}
 

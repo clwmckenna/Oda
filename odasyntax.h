@@ -1,4 +1,5 @@
 #include "odavar.h"  //Import vars first as 'when' statment uses them
+#include "odacalc.h"
 #include "odawhat.h"
 
 bool newlabel(string lab, int line){
@@ -65,4 +66,34 @@ void shell(string lab){
 	lab = lab.substr(firstfind+1,lab.length());
 	lab = lab.substr(0,lab.find('"'));
 	system(lab.c_str());
+}
+
+int mgoto(string lab){
+	lab = lab.substr(5,lab.length());
+	return getValue(lab);
+}
+
+void aski(string lab){
+	lab = lab.substr(5,lab.length()-5);
+	int ret;
+	cin >> ret;
+	assignValue(lab,ret);
+}
+
+void mrand(string lab){
+	//Borrowd from odacalc.h calc() function
+	int po1, po2;
+	int val1, val2;
+	string ass;
+	lab = lab.substr(5,lab.length());//Now we only have args left
+
+	po1 = lab.find(' ');
+	po2 = lab.find(' ',po1+1);
+	val1 = getValue(lab.substr(0,po1));
+	val2 = getValue(lab.substr(po1+1,po2-po1-1));
+	ass = lab.substr(po2+1,lab.length()-po2);
+
+	int tmp = 0;
+	tmp = (rand()%(val2-val1))+val1;
+	assignValue(ass, tmp);
 }
