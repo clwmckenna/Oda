@@ -1,4 +1,4 @@
-#CPPFLAGS=-g -Wall -p
+CPPFLAGS=-g -Wall -p
 full:
 	rm -f oda
 	make oda

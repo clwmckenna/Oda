@@ -1,0 +1,27 @@
+#!/home/mgoszcz2/Desktop/Oda/oda
+main:
+	aski $lim
+	echo "1 1"
+	var $i 0
+	var $a 1
+	var $b 1
+
+
+	a:
+		jump swap
+		+ $a $b $b
+		echo " "
+		echo $b
+		+ $i 1 $i
+		goto b
+	b:
+		when< $i $lim a
+
+	echo "\n"
+	halt
+
+swap:
+	var $t $b
+	var $b $a
+	var $a $t
+	prev

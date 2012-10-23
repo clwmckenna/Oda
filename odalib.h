@@ -1,5 +1,5 @@
 string cws(string org){
-	int i;
+	unsigned int i;
 
 	replace(org.begin(),org.end(),'\t',' ');
 	replace(org.begin(),org.end(),'\r',' ');
@@ -44,10 +44,4 @@ int stoi(string toConv){
 template <class T>
 void quote(T a){
 	cerr << "'" << a << "'\n";
-}
-
-void show(vector<int> a){
-	cout << '<';
-	for(int i=0;i<a.size();++i)cout << a[i] << ' '; 
-	cout << ">\n";
 }

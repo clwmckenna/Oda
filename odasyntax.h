@@ -5,7 +5,7 @@
 bool newlabel(string lab, int line){
 	//Returns is it main function
 	//Add label da
-	int i;
+	unsigned int i;
 
 	for(i=0;i<lab.size();++i){//Remove spaces
 		if(lab[i]==' '){
@@ -23,13 +23,13 @@ bool newlabel(string lab, int line){
 
 void echo(string lab){
 	//Handles priting variable sto be implementd
-	int firstfind = lab.find('"',0);
+	unsigned int firstfind = lab.find('"',0);
 	if(firstfind!=lab.npos){
 		//Handle strings
 		lab = lab.substr(firstfind+1,lab.length());
 		lab = lab.substr(0,lab.find('"'));
 
-		for(int i=0;i<lab.size();++i){
+		for(unsigned int i=0;i<lab.size();++i){
 			if(i<lab.size()-1)
 				if(lab[i]=='\\' and lab[i+1]=='n'){
 					cout << endl;

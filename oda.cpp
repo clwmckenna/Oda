@@ -21,6 +21,8 @@ int a=0;
 #include "odalib.h"
 #include "odasyntax.h"
 
+#define is_type_signed(my_type) (((my_type)-1) < 0)
+
 void execute(char filen[]){
 	srand(time(NULL));
 	vector<string> filec;//Stores file context
@@ -35,8 +37,10 @@ void execute(char filen[]){
 	//Read file into a vector
 
 	//prepare labels and clear whitespace
-	int i,main,tjump;//Stores main() line
+	unsigned int i,main;
+	int tjump;
 	bool tmain, iscomment = false;//True if is comment
+
 	for(i=0;i<filec.size();++i){
 
 		filec[i] = cws(filec[i]);
@@ -78,6 +82,10 @@ void execute(char filen[]){
 			filec.erase(filec.begin()+i);
 			--i;
 			continue;
+		}
+
+		if(filec[i][ filec[i].length()-1 ] == ';'){
+			filec[i].erase(filec[i].length()-1,1);
 		}
 
 		/*Detect laebls*/

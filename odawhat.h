@@ -91,4 +91,5 @@ int when(string lab){
 			return -1;
 		}
 	}
+	return -1;
 }

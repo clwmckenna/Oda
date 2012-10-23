@@ -3,6 +3,9 @@
 /*Oda implementation of simple guess
 game using new io and math functions
 
+VERSION 2:
+	Uses arrays to keep track of chosen numbers
+
 Maciej Goszczycki 2012 - All Rights Reserved*/
 
 ask:
@@ -11,22 +14,38 @@ ask:
 	echo " :"
 	aski $guess
 	- $try 1 $try
+
+	+ 0 $guess $atry[$atry_i]
+	+ $atry_i 1 $atry_i
+ 
 	when= $ans $guess win
 	when< $guess $ans small
 	when> $guess $ans big
 
 main:
+	var $atry_i 0
+	var $atry[5] 0
 	echo "Guess game!\n"
 	echo "\nMax range: "
 	aski $max
 	rand 0 $max $ans
 	//Finished getting ans
 
-	var $try 5
+	var $try 5;
 
 	loop:
 	when> $try 0 ask
 	echo "You loose\n"
+
+	var $try 5
+	loop_try:
+		- $try 1 $try
+		echo "Element: "
+		echo $atry[$try]
+		echo "\n"
+		when> $try 0 loop_try
+		halt $atry[4]
+
 	halt 1
 
 win:
@@ -46,9 +65,11 @@ big:
 	jump loop
 
 easter:
+	echo "How many times to do Na: "
+	aski $ind
 	var $i 0
 	a:
-		when< $i 10 b
+		when< $i $ind b
 		jump c
 	b:
 		echo "Na "
