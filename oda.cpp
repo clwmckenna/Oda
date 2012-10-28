@@ -8,8 +8,7 @@ using namespace std;
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <algorithm>
-#include <utility>
+#include <algorithm>//Used by 'clear whitespace' routine
 #include <cstdlib>
 #include <map>
 #include <cmath>
@@ -91,8 +90,10 @@ void execute(char filen[]){
 		/*Detect laebls*/
 		if(filec[i][ filec[i].length()-1 ] == ':'){
 			tmain = newlabel(filec[i],i);
+			filec.erase(filec.begin()+i);
 			if(tmain)//If it's main
 				main = i;
+			--i;
 		}
 	}
 
@@ -105,12 +106,9 @@ void execute(char filen[]){
 		}else if(filec[i].find("jump")== 0){
 			jumps.push_back(i);//Important leave alone
 			i = jump(filec[i])-1;
-		}else if(filec[i]=="prev"){
-			i = jumps[jumps.size()-1];
-			jumps.pop_back();
 		}else if(filec[i].find("shell")==0){
 			shell(filec[i]);
-		}else if(filec[i].find("when")==0){
+		}else if(filec[i].find("if")==0){
 			tjump = when(filec[i]);
 			/*Fix variable label assigment prev error*/
 			if(tjump!=-1){
@@ -119,13 +117,11 @@ void execute(char filen[]){
 			}
 		}else if(filec[i].find("var")==0){
 			var(filec[i]);
-		}else if(filec[i].find("goto")==0){
-			i = mgoto(filec[i])-1;
 
 		}else if(filec[i][0]=='+' or filec[i][0]=='*' or filec[i][0]=='-' or filec[i][0]=='/' or filec[i][0]=='^' or filec[i][0]=='%' or filec[i][0]=='$'){
 			//Maths :)
 			calc(filec[i]);
-		}else if(filec[i].find("aski")==0){
+		}else if(filec[i].find("ask")==0){
 			aski(filec[i]);
 		}else if(filec[i].find("rand")==0){
 			mrand(filec[i]);

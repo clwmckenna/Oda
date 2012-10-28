@@ -34,10 +34,17 @@ int stoi(string toConv){
 	int result = 0;
 	int tmp = 1;//What to multiply separate numbers by
 
-	for(int i=toConv.length()-1 ;i>=0; --i){
+	for(int i=toConv.length()-1 ;i>0; --i){
 		result += tmp*((int)toConv[i]-48); //Get ansii value and - 48 for char->int
 		tmp *= 10;
 	}
+
+	/*Handle -1 ed. values*/
+	if(toConv[0]=='-')
+		result = -result;
+	else
+		result += tmp*((int)toConv[0]-48);
+
 	return result;
 }
 

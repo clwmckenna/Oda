@@ -1,3 +1,18 @@
+int finwhen(string lab, bool to){
+	/*Assigns value if it's a variableand return -1
+	otherwise return new lable pos*/
+	if(islabel(lab)){
+		/*Make sure we dont' assign value:
+		if it's false just return -1*/
+		if(to)
+			return getValue(lab);
+		return -1;
+	}
+	
+	assignValue(lab,to);
+	return -1;
+}
+
 ifdata getVals(string lab){
 	/*Handels the '2 $var label'
 	pert of the when statment*/
@@ -23,7 +38,7 @@ ifdata getVals(string lab){
 }
 
 int when(string lab){
-	lab.erase(0,4);//Erase 'when'
+	lab.erase(0,2);//Erase 'if'
 
 	ifdata tmpdata;
 
@@ -32,64 +47,42 @@ int when(string lab){
 
 		tmpdata = getVals(lab);
 
-		if(tmpdata.one>=tmpdata.two){
-			return labels[tmpdata.newlab];
-		}else{
-			return -1;
-		}
+		return finwhen(tmpdata.newlab, tmpdata.one>=tmpdata.two );
 
 	}else if(lab[0]=='<' and lab[1]=='='){
 		lab = lab.substr(3,lab.length());
 
 		tmpdata = getVals(lab);
 
-		if(tmpdata.one<=tmpdata.two){
-			return labels[tmpdata.newlab];
-		}else{
-			return -1;
-		}
+		return finwhen(tmpdata.newlab, tmpdata.one<=tmpdata.two );
 
 	}else if(lab[0]=='='){
 		lab = lab.substr(2,lab.length());
 
 		tmpdata = getVals(lab);
 
-		if(tmpdata.one==tmpdata.two){
-			return labels[tmpdata.newlab];
-		}else{
-			return -1;
-		}
+		return finwhen(tmpdata.newlab, tmpdata.one==tmpdata.two );
+
 	}else if(lab[0]=='>'){
 		lab = lab.substr(2,lab.length());
 
 		tmpdata = getVals(lab);
 
-		if(tmpdata.one>tmpdata.two){
-			return labels[tmpdata.newlab];
-		}else{
-			return -1;
-		}
+		return finwhen(tmpdata.newlab,tmpdata.one>tmpdata.two);
+
 	}else if(lab[0]=='<'){
 		lab = lab.substr(2,lab.length());
 
 		tmpdata = getVals(lab);
 
-		if(tmpdata.one<tmpdata.two){
-			return labels[tmpdata.newlab];
-		}else{
-			return -1;
-		}
+		return finwhen(tmpdata.newlab,tmpdata.one<tmpdata.two);
 
 	}else if(lab[0]=='!' and lab[1]=='='){
 		lab = lab.substr(3,lab.length());
 
 		tmpdata = getVals(lab);
 
-		if(tmpdata.one!=tmpdata.two){
-			return labels[tmpdata.newlab];
-		}else{
-			return -1;
-		}
+		return finwhen(tmpdata.newlab,tmpdata.one!=tmpdata.two);
 	}
 	return -1;
 }

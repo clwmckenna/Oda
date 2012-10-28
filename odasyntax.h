@@ -1,20 +1,11 @@
 #include "odavar.h"  //Import vars first as 'when' statment uses them
 #include "odacalc.h"
-#include "odawhat.h"
+#include "odaif.h"
 
 bool newlabel(string lab, int line){
 	//Returns is it main function
-	//Add label da
-	unsigned int i;
-
-	for(i=0;i<lab.size();++i){//Remove spaces
-		if(lab[i]==' '){
-			lab.erase(i,1);
-			i--;
-		}
-	}
 		
-	labels[lab.substr(0,lab.find(':',0))] = line;
+	assignValue(lab.substr(0,lab.find(':',0)), line,true);
 
 	if(lab.substr(0,lab.find(':',0))=="main")
 		return true;
@@ -22,7 +13,6 @@ bool newlabel(string lab, int line){
 }
 
 void echo(string lab){
-	//Handles priting variable sto be implementd
 	unsigned int firstfind = lab.find('"',0);
 	if(firstfind!=lab.npos){
 		//Handle strings
@@ -55,8 +45,8 @@ void halt(string lab){
 
 int jump(string lab){
 	//Returns line to which to jump
-	lab = lab.substr(lab.find(' ')+1,lab.length());
-	return labels[lab];
+	lab = lab.substr(5,lab.length()-5);
+	return getValue(lab);
 }
 
 void shell(string lab){
@@ -68,13 +58,8 @@ void shell(string lab){
 	system(lab.c_str());
 }
 
-int mgoto(string lab){
-	lab = lab.substr(5,lab.length());
-	return getValue(lab);
-}
-
 void aski(string lab){
-	lab = lab.substr(5,lab.length()-5);
+	lab = lab.substr(4,lab.length()-4);
 	int ret;
 	cin >> ret;
 	assignValue(lab,ret);

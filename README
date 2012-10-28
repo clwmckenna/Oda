@@ -1,0 +1,17 @@
+README:
+	'when' becomes 'if'
+	'aski' now is 'ask'
+	Taking away label lines
+	$ sign removed
+	'if' now assigns value
+	'prev' removed
+	Handle minus cases in getValue()
+	Bug fixes
+
+TODO:
+	Echo accepts multiple arguments
+	Echo accepts backslahes
+	Add functions
+	Add loops
+	Add calc
+	Add chars
